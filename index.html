@@ -6,9 +6,9 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23214d34'/%3E%3Ctext x='32' y='40' text-anchor='middle' font-family='Arial' font-size='24' font-weight='700' fill='white'%3ERT%3C/text%3E%3C/svg%3E" />
     <meta
       name="description"
-      content="Install Resume Toner, create a Gemini API key, and tailor technical resumes locally with a review-first Chrome extension."
+      content="Download the Resume Toner desktop app and tailor a LaTeX resume locally with a review-first workflow."
     />
-    <title>Resume Toner — Setup guide</title>
+    <title>Resume Toner Desktop — Download and setup</title>
     <style>
       :root {
         color-scheme: light;
@@ -54,16 +54,16 @@
   <body>
     <nav class="wrap site-nav" aria-label="Primary navigation">
       <a class="brand" href="#top"><span class="mark">RT</span>Resume Toner</a>
-      <div class="nav-links"><a href="#setup">Get an API key</a><a href="#install">Install</a><a href="#privacy">Privacy</a><a class="button" href="#install">Get started</a></div>
+      <div class="nav-links"><a href="#install">Download</a><a href="#setup">Setup</a><a href="#privacy">Privacy</a><a class="button" href="https://github.com/ParthD77/ResumeToner/releases">Desktop releases</a></div>
     </nav>
     <main id="top">
       <section class="wrap hero">
         <div>
-          <div class="eyebrow">Local-first · Review every change</div>
+          <div class="eyebrow">Desktop app · Local-first · Review every change</div>
           <h1>Tailor your resume without surrendering control.</h1>
-          <p class="hero-copy">Resume Toner captures a job listing, proposes evidence-linked edits, and exports a fresh ATS-friendly PDF. Your records stay in Chrome; Gemini runs only when you ask.</p>
-          <div class="hero-actions"><a class="button" href="#install">Install Resume Toner</a><a class="button alt" href="#setup">Setup guide ↓</a></div>
-          <div class="trust-row"><span>No Resume Toner account</span><span>No analytics</span><span>Bring your own Gemini key</span></div>
+          <p class="hero-copy">Resume Toner turns your LaTeX resume and a job posting into a review-first workflow. Use your existing ChatGPT window, approve every edit, and compile the final PDF on your computer.</p>
+          <div class="hero-actions"><a class="button" href="https://github.com/ParthD77/ResumeToner/releases">Download desktop app</a><a class="button alt" href="#setup">Setup guide ↓</a></div>
+          <div class="trust-row"><span>No Resume Toner account</span><span>No analytics</span><span>No API key required</span></div>
         </div>
         <div class="hero-visual product-shot" role="img" aria-label="Illustration of the Resume Toner review workspace">
           <div class="chrome-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="address"></span></div>
@@ -73,25 +73,25 @@
 
       <section class="section" id="setup">
         <div class="wrap">
-          <div class="section-head"><div class="eyebrow">Step 1 · Gemini API key</div><h2>Create your key in a few minutes.</h2><p>You do not need to write code. The key identifies your Google AI Studio project, applies its rate limits, and lets Resume Toner send only the requests you initiate.</p></div>
-          <div class="steps"><article class="step"><span class="step-num">1</span><h3>Open Google AI Studio</h3><p>Sign in, accept Google’s terms, then open the API Keys dashboard. New users normally receive a default project and key automatically.</p></article><article class="step"><span class="step-num">2</span><h3>Create and copy a key</h3><p>Select <strong>Create API key</strong> if no key exists. New keys are authorization keys restricted to the Gemini API by default.</p></article><article class="step"><span class="step-num">3</span><h3>Verify it in Resume Toner</h3><p>Open the extension’s Settings, paste the key, and select <strong>Verify and save</strong>. The key stays in local Chrome storage and is excluded from backups.</p></article></div>
+          <div class="section-head"><div class="eyebrow">How it works</div><h2>A local, review-first workflow.</h2><p>The desktop app compiles your resume on your own computer. It does not need a Resume Toner account or developer-issued API key.</p></div>
+          <div class="steps"><article class="step"><span class="step-num">1</span><h3>Install LaTeX</h3><p>On Windows, install <a href="https://miktex.org/download">MiKTeX</a> and allow missing packages to install automatically. On an Apple-silicon Mac, install <a href="https://www.tug.org/mactex/">MacTeX</a>.</p></article><article class="step"><span class="step-num">2</span><h3>Download Resume Toner</h3><p>Use only the installer attached to this project's official GitHub Release. If no installer is attached, a desktop release has not been published yet.</p></article><article class="step"><span class="step-num">3</span><h3>Open your LaTeX resume</h3><p>Launch Resume Toner, open or paste your base <code>.tex</code> file, and confirm that the PDF preview compiles correctly.</p></article></div>
           <div class="setup-grid">
-            <div><h3>What you’ll see in AI Studio</h3><ol class="guide-list"><li>Open the <a href="https://aistudio.google.com/app/apikey" rel="noopener noreferrer">Google AI Studio API Keys page</a>.</li><li>Choose an existing project or let AI Studio create the default project.</li><li>Select <strong>Create API key</strong>, then copy it once. Treat it like a password.</li><li>Use AI Studio’s restriction control if an older key is labelled unrestricted.</li></ol></div>
-            <div class="ui-shot" role="img" aria-label="Annotated example of the Google AI Studio API Keys screen"><div class="ui-top"><span class="google-dots">● ● ● ●</span><span>Google AI Studio</span></div><div class="ui-content"><div class="fake-title">API Keys</div><p>Manage keys connected to your Google Cloud projects</p><span class="fake-button">＋ Create API key</span><div class="key-row"><span>Resume Toner key</span><span class="key-mask">••••••••••••••••</span><span>Copy</span></div><div class="annotation"><i>1</i>Create a dedicated key</div><div class="annotation"><i>2</i>Copy it into Resume Toner Settings</div></div></div>
+            <div><h3>Your first tailored resume</h3><ol class="guide-list"><li>Paste the job posting and generate the structured prompt.</li><li>Use the prompt in your own ChatGPT conversation.</li><li>Paste ChatGPT's JSON response back into Resume Toner.</li><li>Accept, edit, or reject every proposed change, then export the reviewed PDF.</li></ol></div>
+            <div class="ui-shot" role="img" aria-label="Illustration of the desktop review workflow"><div class="ui-top"><span class="fake-title">Resume Toner Desktop</span><span>Local LaTeX</span></div><div class="ui-content"><div class="fake-title">Review proposed changes</div><p>Exact source snippets are validated before a proposal can be applied.</p><span class="fake-button">Accept reviewed change</span><div class="key-row"><span class="mark">RT</span><span class="key-mask"><strong>Resume.pdf</strong><br>Compiled locally</span><span>✓</span></div><div class="annotation"><i>1</i>You decide what changes</div><div class="annotation"><i>2</i>Export only after review</div></div></div>
           </div>
-          <div class="callout"><strong>Is Gemini free?</strong> Google currently offers a free tier with free input and output tokens within model-specific limits. Billing is optional unless you upgrade or exceed what your chosen service supports. Important privacy tradeoff: Google says free-tier content may be used to improve its products; paid-service content is not. Resume Toner never pays Google on your behalf or receives your billing details.</div>
-          <p class="source-note">Official references: <a href="https://ai.google.dev/gemini-api/docs/api-key">API key guide</a>, <a href="https://ai.google.dev/gemini-api/docs/pricing">pricing and data use</a>, and <a href="https://ai.google.dev/gemini-api/terms">Gemini API terms</a>.</p>
+          <div class="callout"><strong>Before using ChatGPT:</strong> the app prepares a prompt containing the resume and job information you provide. Review it before pasting. Anything you submit to ChatGPT is governed by your OpenAI account, plan, settings, and applicable terms.</div>
+          <p class="source-note">Need the browser-based Gemini workflow instead? The <a href="https://github.com/ParthD77/ResumeToner#chrome-extension-alternative">Chrome extension remains available as an advanced alternative</a>.</p>
         </div>
       </section>
 
       <section class="section" id="install">
-        <div class="wrap"><div class="section-head"><div class="eyebrow">Step 2 · Install</div><h2>Choose the install path that fits.</h2><p>The Web Store will be the simplest update-safe option after publication. The manual ZIP is available now for testers and open-source users.</p></div>
+        <div class="wrap"><div class="section-head"><div class="eyebrow">Start here · Download</div><h2>Get the desktop app.</h2><p>Windows is the recommended path. Downloads appear on GitHub Releases after the publisher has built and tested them.</p></div>
           <div class="install-options">
-            <article class="install-card"><span class="badge pending">COMING AFTER STORE APPROVAL</span><h3>Option A — Chrome Web Store</h3><ol><li>Open the Resume Toner Store listing.</li><li>Select <strong>Add to Chrome</strong>.</li><li>Review the listed permissions and choose <strong>Add extension</strong>.</li><li>Use the puzzle icon to pin Resume Toner, then open Settings.</li></ol><a class="button alt" href="https://support.google.com/chrome/answer/2664769" rel="noopener noreferrer">Chrome’s install guide</a></article>
-            <article class="install-card"><span class="badge">AVAILABLE NOW</span><h3>Option B — Manual ZIP</h3><ol><li><a href="resume-toner-chrome.zip" download>Download the release ZIP</a> and extract it to a permanent folder.</li><li>Enter <span class="code-line">chrome://extensions</span> in Chrome’s address bar.</li><li>Turn on <strong>Developer mode</strong>, select <strong>Load unpacked</strong>, and choose the extracted folder containing <code>manifest.json</code>.</li><li>Pin the extension. Keep the folder in place; delete it only after removing the extension.</li></ol><a class="button" href="resume-toner-chrome.zip" download>Download manual ZIP</a></article>
+            <article class="install-card"><span class="badge">RECOMMENDED</span><h3>Windows desktop</h3><ol><li>Install MiKTeX first.</li><li>Open the official Releases page and download the latest `.exe`.</li><li>Run the installer. Early community releases are unsigned, so Windows may show an <strong>Unknown publisher</strong> warning.</li><li>Reopen the app after any MiKTeX installation or update.</li></ol><a class="button" href="https://github.com/ParthD77/ResumeToner/releases">View Windows downloads</a></article>
+            <article class="install-card"><span class="badge pending">SIGNED BUILD REQUIRED</span><h3>Apple-silicon Mac</h3><ol><li>Install MacTeX.</li><li>Download the notarized arm64 DMG if one is attached to the latest official release.</li><li>Drag Resume Toner Desktop to Applications.</li><li>Requires macOS 13 or newer; Intel Macs are not currently supported.</li></ol><a class="button alt" href="https://github.com/ParthD77/ResumeToner/releases">View Mac downloads</a></article>
           </div>
-          <div class="setup-grid"><div class="ui-shot" role="img" aria-label="Annotated example of Chrome's Extensions page"><div class="ui-top"><span class="fake-title">Extensions</span><span>Developer mode ◉</span></div><div class="ui-content"><span class="fake-button">Load unpacked</span><div class="key-row"><span class="mark">RT</span><span class="key-mask"><strong>Resume Toner</strong><br>Enabled</span><span>●</span></div><div class="annotation"><i>1</i>Enable Developer mode</div><div class="annotation"><i>2</i>Load the extracted folder, not the ZIP</div></div></div><div><h3>After installation</h3><ol class="guide-list"><li>Open Resume Toner Settings and verify your Gemini key.</li><li>Import your resume PDF and review the structured result before saving.</li><li>Open a job listing and click the toolbar icon to capture it.</li><li>Analyze, accept or reject every proposal, then export the fresh ATS PDF.</li></ol></div></div>
-          <p class="source-note">Manual loading follows the official <a href="https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked">Chrome developer-mode instructions</a>. Work or school administrators may block extension installation.</p>
+          <div class="setup-grid"><div class="ui-shot" role="img" aria-label="Official GitHub Releases download guidance"><div class="ui-top"><span class="fake-title">GitHub Releases</span><span>Assets</span></div><div class="ui-content"><span class="fake-button">Windows installer (.exe)</span><div class="key-row"><span class="mark">RT</span><span class="key-mask"><strong>Official project release</strong><br>Source and installer share a version tag</span><span>✓</span></div><div class="annotation"><i>1</i>Download only from ParthD77/ResumeToner</div><div class="annotation"><i>2</i>No asset means no release is available yet</div></div></div><div><h3>Prefer to build it yourself?</h3><ol class="guide-list"><li>Install Node.js 20 or newer and clone the repository.</li><li>Run <code>npm install</code> and <code>npm test</code>.</li><li>On Windows, run <code>npm run desktop:build:win</code>.</li><li>Find the installer in the versioned <code>desktop-release-*</code> folder.</li></ol></div></div>
+          <p class="source-note">Unsigned Windows builds are best suited to testers and technical early adopters. For a wider public launch, a code-signed installer provides a substantially better and safer onboarding experience.</p>
         </div>
       </section>
 
@@ -99,12 +99,13 @@
       <article class="privacy-card">
         <div class="eyebrow">Resume Toner</div>
         <h1>Privacy Policy</h1>
-        <p>Last updated: September 21, 2026</p>
+        <p>Last updated: September 22, 2026</p>
 
         <p class="summary">
-          Resume Toner is a local-first, open-source Chrome extension. It has no
-          developer-operated backend, user accounts, analytics, advertising, or
-          telemetry. The developer cannot view users' resumes or API keys.
+          Resume Toner is a local-first, open-source desktop app with an optional
+          Chrome extension. It has no developer-operated backend, user accounts,
+          analytics, advertising, or telemetry. The developer cannot remotely
+          view users' resumes, application data, or API keys.
         </p>
 
         <h2>Information handled</h2>
@@ -113,19 +114,30 @@
           <li>resume content, including identity, contact, location, education, work history, projects, and skills;</li>
           <li>PDF files selected for resume import;</li>
           <li>career evidence and optional user-confirmed chatbot context;</li>
-          <li>the URL and visible content of a job page captured after the user clicks the extension; and</li>
-          <li>a user-provided Google Gemini API key.</li>
+          <li>job postings pasted into the desktop app or captured after the user clicks the extension;</li>
+          <li>LaTeX source, ChatGPT prompts and responses used in the desktop workflow; and</li>
+          <li>a user-provided Google Gemini API key when the optional extension is used.</li>
         </ul>
 
         <h2>Local storage</h2>
         <p>
-          Resume profiles, uploaded source PDFs, career evidence, job captures,
-          tailoring runs, review decisions, settings, and application history are
-          stored locally in Chrome-managed storage on the user's device. The
-          Gemini API key is stored locally, is not synchronized, is excluded from
-          backups, and is not sent to the Resume Toner developer. Chrome extension
-          storage is not encrypted, so someone with access to an unlocked Chrome
-          profile may be able to recover locally stored information.
+          Desktop resumes, jobs, pasted responses, review decisions, settings, and
+          recent snapshots are stored in the app's local storage on the user's
+          device. Extension data is stored in Chrome-managed storage. Neither is
+          encrypted or a cloud backup. The extension's Gemini API key is stored
+          locally, is not synchronized, is excluded from backups, and is not sent
+          to the Resume Toner developer. Someone with access to an unlocked device
+          or Chrome profile may be able to recover locally stored information.
+        </p>
+
+        <h2>Transfers through the desktop workflow</h2>
+        <p>
+          The desktop app prepares a prompt from the resume and job information
+          supplied by the user. The user reviews and manually pastes that prompt
+          into their own ChatGPT conversation, then manually pastes the response
+          back into Resume Toner. Resume Toner does not operate an OpenAI API key
+          or backend. Information submitted to ChatGPT is handled under the user's
+          OpenAI account, plan, settings, and applicable terms.
         </p>
 
         <h2>Transfers to Google Gemini</h2>
@@ -163,11 +175,12 @@
 
         <h2>Retention and deletion</h2>
         <p>
-          Information remains on the user's device until the user deletes it or
-          uninstalls the extension. Users can delete application records, delete
-          all local structured data, forget the API key, and export a backup that
-          excludes the API key. Files downloaded by the user remain wherever the
-          user saved them.
+          Information remains on the user's device until the user deletes it,
+          clears the relevant application data, or uninstalls the app or extension.
+          Desktop users can export and restore a private local backup. Extension
+          users can delete application records, delete local structured data,
+          forget the API key, and export a backup that excludes the API key. Files
+          downloaded by the user remain wherever the user saved them.
         </p>
 
         <h2>User responsibility</h2>

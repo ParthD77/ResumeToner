@@ -1,164 +1,120 @@
 # Resume Toner
 
-Resume Toner is a local-first Chrome extension for tailoring English technical resumes to a job listing. It captures the active listing, uses your own Gemini API key to create evidence-linked suggestions, lets you review every change, recalculates transparent match scores, and exports an ATS-friendly PDF.
+Resume Toner is a local-first desktop app for tailoring a LaTeX resume to a job posting. It prepares a structured prompt for your existing ChatGPT window, validates the response against your exact resume source, lets you accept, edit, or reject every proposed change, and compiles the reviewed result locally.
 
-## Windows and macOS desktop app
+The desktop app is the recommended way to use Resume Toner. A Chrome extension with a bring-your-own Gemini API key is also available for advanced users and contributors.
 
-The repository also contains a desktop workflow for Windows and Apple-silicon Macs that uses your existing ChatGPT window instead of an API key. Its source of truth is your LaTeX resume: it opens or pastes `.tex`, compiles locally with MiKTeX on Windows or MacTeX on macOS, creates a strict research-and-tailoring prompt, validates ChatGPT's pasted JSON against exact unique LaTeX snippets, and turns each replacement into an accept/edit/reject card.
+## Install the desktop app
 
-- Choose **Current resume** for a job-specific change or **Base + current** to promote an accepted change to the saved base resume when exporting.
-- Synthetic proposals require an explicit truth confirmation before they can be accepted. Confirmed proposals export normally.
-- Eligibility, target profile, research sources, gaps, and synthetic ideas appear in the optional analysis side panel.
-- PDF exports default to `Resume.pdf`; you can choose another filename when saving.
-- You can also save the reviewed source as `Resume.tex`.
+### Windows (recommended)
 
-Run the development app with `npm run desktop:dev`. Build the Windows installer with `npm run desktop:build:win`. On an Apple-silicon Mac, build the signed and notarized DMG with `npm run desktop:build:mac`. Release artifacts are written to the versioned `desktop-release-*` directory.
+1. Install [MiKTeX](https://miktex.org/download). During setup, allow MiKTeX to install missing packages automatically.
+2. Open the [Resume Toner releases page](https://github.com/ParthD77/ResumeToner/releases) and download the latest Windows `.exe` installer.
+3. Run the installer. The current community build is unsigned, so Windows may show **Windows protected your PC**. If you trust this repository and verified that the download came from its Releases page, choose **More info**, confirm the publisher is listed as unknown, and choose **Run anyway**.
+4. Quit and reopen Resume Toner after installing or updating MiKTeX.
 
-The desktop ChatGPT prompt is a plain-text template at `src/desktop/tailoring-prompt.txt`. Edit its instructions directly, while keeping the `{{RESPONSE_CONTRACT}}`, `{{LATEX}}`, and `{{JOB_POSTING}}` placeholders intact, then rebuild or restart the development app.
+If there is no `.exe` on the Releases page yet, no desktop release has been published. You can build it from source using the instructions below; do not download installers posted in issues or by third parties.
 
-### Desktop saves and review scopes
+### macOS (Apple silicon)
 
-- The desktop app autosaves your base, active job, pasted response, edits and review decisions locally. Reopening the same app/profile restores your session and recompiles the PDF preview.
-- **This job only** applies an accepted change only to the job-specific resume.
-- **This job + saved base** also updates the saved base after a successful PDF export. Cancelled exports do not change the saved base. The active review retains its original source so changes are not applied twice.
-- **Local saves & history** keeps the newest five snapshots, taken on export, starting a new job, replacing the base, or manually. Restoring a snapshot restores its base and entire review session.
-- Download a private JSON backup before switching between development and the installed app (they use different storage origins), changing computers, or uninstalling. Restore it from **Local saves & history**. You can also export your saved base as `.tex`.
-- Local autosave is not encrypted and is not a cloud backup. Storage failures are reported in the saves panel. Never commit private resume backups or job application data to this public repository.
-- Word-level red/green highlights compare readable wording; the PDF preview remains the authority for layout. Raw LaTeX remains editable under each proposal.
+The macOS build requires macOS 13 or newer and [MacTeX](https://www.tug.org/mactex/). A public Mac build must be signed and notarized by the publisher, so a DMG may not be available yet. If one is published, download it only from the [official Releases page](https://github.com/ParthD77/ResumeToner/releases), drag the app to Applications, and reopen it after installing MacTeX.
 
-### Desktop prerequisites
+## First run
 
-- Windows users install [MiKTeX](https://miktex.org/download) and make `pdflatex` available on `PATH`.
-- Mac users install [MacTeX](https://www.tug.org/mactex/). Resume Toner checks MacTeX's standard `/Library/TeX/texbin` location even when the app is launched from Finder. The Mac build requires Apple silicon and macOS 13 or newer.
-- After installing or updating the TeX distribution, quit and reopen Resume Toner before compiling.
+1. Open or paste your base `.tex` resume. Resume Toner compiles it locally with MiKTeX on Windows or MacTeX on macOS.
+2. Paste the job posting, generate the prompt, and use it in your own ChatGPT conversation.
+3. Paste ChatGPT's JSON response back into Resume Toner.
+4. Review every proposed replacement. Synthetic proposals require an explicit truth confirmation.
+5. Export the reviewed PDF, and optionally the reviewed `.tex` source.
 
-### Publishing the Windows release
+Choose **This job only** for a job-specific change. Choose **This job + saved base** to promote an accepted change to the saved base after a successful PDF export.
 
-Run `npm test` and `npm run desktop:build:win`. Upload the generated Windows installer to a GitHub Release, not to Git source control. The installer is unsigned, so Windows may show a publisher warning. Before sharing publicly, smoke-test installation, MiKTeX compilation, PDF export, quitting/reopening, and private-backup restoration on Windows.
+## Your data
 
-### Publishing the macOS release
+- Resume Toner has no account, hosted application backend, analytics, advertising, telemetry, or shared API key.
+- The desktop app stores your base resume, active job, pasted response, edits, decisions, and five recent snapshots locally. This storage is not encrypted or a cloud backup.
+- The app prepares text for you to paste into ChatGPT. Anything you paste there is handled under your ChatGPT account and OpenAI's applicable terms and settings.
+- Download a private JSON backup before uninstalling, changing computers, or switching between development and installed builds. Never commit private backups, resumes, or application data to this public repository.
+- Only compile LaTeX you trust. Disabling shell escape does not completely sandbox TeX file access.
 
-The public DMG is built with hardened runtime enabled and must be signed with a `Developer ID Application` certificate and notarized by Apple. Only the publisher needs an Apple Developer account; people installing the notarized DMG do not.
+See [Privacy](docs/PRIVACY.md), [Security](SECURITY.md), and [Terms](docs/TERMS.md). Users remain responsible for verifying every claim and every generated change before submitting a resume.
 
-1. Install the Developer ID certificate in the release Mac's Keychain.
-2. Provide notarization credentials using one of electron-builder's supported methods. For App Store Connect API credentials, set `APPLE_API_KEY`, `APPLE_API_KEY_ID`, and `APPLE_API_ISSUER`. Keep certificates, keys, and credentials outside this repository.
-3. Run `npm test` and `npm run desktop:build:mac`. The build intentionally fails instead of publishing an unsigned app when no signing identity is available.
-4. Verify the app and DMG before upload:
+## Build the desktop app from source
 
-   ```bash
-   codesign --verify --deep --strict --verbose=2 "/Applications/Resume Toner Desktop.app"
-   spctl --assess --type execute --verbose=2 "/Applications/Resume Toner Desktop.app"
-   xcrun stapler validate desktop-release-*/Resume-Toner-Desktop-*-mac-arm64.dmg
-   ```
+Requirements:
 
-5. Upload the arm64 DMG to a GitHub Release. Smoke-test drag-to-Applications installation, first launch, MacTeX compilation, PDF and LaTeX exports, Dock reopen behavior, persistence, and private-backup restoration on a clean Apple-silicon Mac.
+- Node.js 20 or newer
+- Windows 10/11 with MiKTeX for the Windows build
+- Apple-silicon Mac with macOS 13+, MacTeX, Xcode command-line tools, and an Apple Developer signing identity for the public Mac build
 
-The first Mac release does not support Intel Macs, the Mac App Store, or automatic updates. On both platforms, only compile trusted LaTeX: disabling shell escape is not a complete sandbox for TeX file access.
+Clone the repository, then run:
 
-There is no Resume Toner account, hosted application backend, telemetry, or shared API key. Structured resume and application data stays in Chrome-managed storage on your device. When you choose **Analyze** or **Compact**, the extension sends your entire resume and full job listing directly to Google Gemini with your key.
+```powershell
+npm install
+npm test
+npm run desktop:dev
+```
 
-## Quick setup
+Build an unsigned Windows installer:
 
-### 1. Create a Gemini API key
+```powershell
+npm install
+npm test
+npm run desktop:build:win
+```
 
-Resume Toner uses a key from your own Google AI Studio account. There is no shared developer key, Resume Toner subscription, or Resume Toner account.
+The installer is written to `desktop-release-1.1.0/`. Smoke-test installation, LaTeX compilation, PDF and `.tex` export, restart persistence, and backup restoration before publishing it.
 
-You must be at least 18 years old to use the Gemini API. Google describes the API as a developer service for professional or business purposes. If you use Resume Toner in the European Economic Area, Switzerland, or the United Kingdom, Google's current Gemini API terms require use of Paid Services; use a key from a Cloud project with active billing. Review Google's current terms before use because provider requirements can change.
+To create a GitHub Release with the unsigned installer, install and authenticate the [GitHub CLI](https://cli.github.com/), choose a version tag, and run:
 
-Use of Resume Toner is also subject to the repository's [Terms of Use](TERMS.md). Have a qualified lawyer review the Terms and Privacy Policy before a commercial launch in the jurisdictions where the product will be offered.
+```powershell
+$version = (Get-Content package.json | ConvertFrom-Json).version
+$installer = Get-ChildItem "desktop-release-$version" -Filter *.exe | Select-Object -First 1
+$hashFile = "$($installer.FullName).sha256.txt"
+"$((Get-FileHash $installer.FullName -Algorithm SHA256).Hash)  $($installer.Name)" | Set-Content $hashFile
+gh release create "v$version" $installer.FullName $hashFile --title "Resume Toner v$version" --notes "Unsigned Windows community build. Windows may show an Unknown publisher warning. Download only from this repository."
+```
 
-1. Open the [Google AI Studio API Keys page](https://aistudio.google.com/app/apikey) and sign in with your Google account.
-2. Accept Google's terms if prompted. For a new account, AI Studio normally creates a default Google Cloud project and key automatically.
-3. If no key is available, select **Create API key** and choose or create a project.
-4. Copy the key. Treat it like a password: do not post it in an issue, include it in a screenshot, or commit it to Git.
-5. After installing Resume Toner, open its Settings page, paste the key into **Gemini API key**, and select **Verify and save key**.
-6. Resume Toner makes a small live request to confirm that the key and selected model work. The key is saved only after verification succeeds.
+If the release already exists, upload or replace the asset with:
 
-New AI Studio keys are currently authorization keys restricted to the Gemini API by default. If an older key is labelled **Unrestricted**, use AI Studio's restriction control to restrict it to the Gemini API. Consider using a dedicated key and setting quota or billing alerts.
+```powershell
+$version = (Get-Content package.json | ConvertFrom-Json).version
+$installer = Get-ChildItem "desktop-release-$version" -Filter *.exe | Select-Object -First 1
+$hashFile = "$($installer.FullName).sha256.txt"
+"$((Get-FileHash $installer.FullName -Algorithm SHA256).Hash)  $($installer.Name)" | Set-Content $hashFile
+gh release upload "v$version" $installer.FullName $hashFile --clobber
+```
 
-#### Is Gemini free?
+An unsigned release is acceptable for testers and technical early adopters, but it creates a security warning and asks users to make a risky-looking exception. It does not meaningfully eliminate your legal responsibility to distribute safe software; making every user compile the same source mainly shifts inconvenience and build risk to them. For a general public Windows launch, code-sign the installer. Until then, label it clearly as unsigned, publish checksums, keep source and release artifacts tied to a tag, and never tell users to disable antivirus or SmartScreen globally.
 
-Google currently provides a free Gemini API tier with free input and output tokens within model-specific rate limits in eligible regions. Outside the EEA, Switzerland, and the United Kingdom, you do not have to enable billing merely to create a free-tier key. Paid service provides different models, limits, features, and data-use terms.
+Build the signed and notarized Apple-silicon DMG:
 
-There is an important data-use difference:
+```bash
+npm install
+npm test
+npm run desktop:build:mac
+```
 
-- Google says content submitted through free-tier services may be used to improve its products, including machine-learning technologies.
-- Google says content submitted through paid services is not used to improve its products.
+The Mac build intentionally fails when no `Developer ID Application` identity is available. Configure electron-builder notarization credentials outside the repository (for example `APPLE_API_KEY`, `APPLE_API_KEY_ID`, and `APPLE_API_ISSUER`), then verify the result before upload:
 
-Resumes can contain names, contact information, education, and employment history. Review the current [Gemini pricing and data-use table](https://ai.google.dev/gemini-api/docs/pricing) and [Gemini API terms](https://ai.google.dev/gemini-api/terms) before choosing a tier. Resume Toner cannot change Google's terms or account settings and never receives your Google billing information.
+```bash
+codesign --verify --deep --strict --verbose=2 "/Applications/Resume Toner Desktop.app"
+spctl --assess --type execute --verbose=2 "/Applications/Resume Toner Desktop.app"
+xcrun stapler validate desktop-release-*/Resume-Toner-Desktop-*-mac-arm64.dmg
+```
 
-### 2. Install Resume Toner
+## Desktop development notes
 
-Choose one of the following installation methods. Chrome extensions run on desktop Chrome; managed work or school devices may prevent installation.
+- `npm run desktop:preview` builds and opens the production desktop bundle locally.
+- The ChatGPT prompt template is `src/desktop/tailoring-prompt.txt`. Keep the `{{RESPONSE_CONTRACT}}`, `{{LATEX}}`, and `{{JOB_POSTING}}` placeholders intact.
+- Development and installed builds use different storage origins. Export a private backup before switching between them.
+- PDF exports default to `Resume.pdf`; source exports default to `Resume.tex`.
 
-#### Option A: Chrome Web Store
+## Chrome extension (alternative)
 
-This will be the recommended method after the public listing is approved because Chrome handles installation and updates.
+The extension captures a job page in desktop Chrome, calls Google Gemini with the user's own API key, stores records in Chrome-managed local storage, and exports an ATS-friendly PDF. It is not the recommended onboarding path while no Chrome Web Store listing exists.
 
-1. Open the Resume Toner Chrome Web Store listing when it becomes available.
-2. Select **Add to Chrome**.
-3. Review the requested permissions and select **Add extension**.
-4. Select Chrome's Extensions puzzle icon, find Resume Toner, and select the pin icon for easier access.
-5. Open Resume Toner and continue through the guided setup.
-
-Until the Store listing is published, use the manual method below.
-
-#### Option B: Manual release ZIP
-
-1. Open the [visual setup and download page](https://parthd77.github.io/ResumeToner/).
-2. Select **Download manual ZIP**.
-3. Extract the ZIP into a permanent folder. Do not try to load the ZIP itself, and do not delete or move the extracted folder while the extension is installed.
-4. Enter `chrome://extensions` in Chrome's address bar.
-5. Turn on **Developer mode** in the upper-right corner.
-6. Select **Load unpacked**.
-7. Choose the extracted folder that directly contains `manifest.json`.
-8. Confirm that the Resume Toner card appears and is enabled, then pin it from Chrome's Extensions menu.
-
-Manual installations do not receive automatic Store updates. To update, download and extract the new release, replace the old extracted files, and select the reload icon on the Resume Toner card at `chrome://extensions`.
-
-### 3. Complete onboarding
-
-1. Open Resume Toner Settings and verify your Gemini key.
-2. Read and accept the cloud-transfer disclosure. PDF import, **Analyze**, and **Compact** send the disclosed resume and job information directly to Google Gemini only after you invoke those actions.
-3. Upload a text-based resume PDF. Resume Toner extracts its text locally, sends that text to Gemini for structured import, and shows the complete result for review before saving.
-4. Check your name, contact details, education, dates, employers, projects, links, skills, bullets, technologies, and metrics. Correct any extraction mistakes before confirming the base resume.
-5. Optionally add career evidence or user-confirmed context. Resume Toner uses this information to check whether proposed claims are supported.
-
-### 4. Tailor and export a resume
-
-1. Open a technical job listing in Chrome.
-2. Select the Resume Toner toolbar icon to capture the active page, or paste the listing manually in the workspace.
-3. Choose a one- or two-page target and a tailoring mode.
-4. Select **Analyze and tailor**. Resume Toner sends the full resume, saved evidence, optional confirmed context, and job listing to Gemini using your key.
-5. Review every proposal. Accept, reject, or edit it; nothing is silently added to the exported resume.
-6. If the preview exceeds the page target, use **Compact with Gemini** and review the resulting shortening proposals.
-7. Select **Export PDF**. Resume Toner generates a fresh ATS-friendly US Letter PDF containing only the final reviewed profile. It does not cover or reuse hidden text from the uploaded source PDF.
-
-### How data and the API key are handled
-
-- Resume profiles, source PDFs, evidence, listings, tailoring runs, decisions, and history remain in Chrome-managed storage on the device until deleted or the extension is uninstalled.
-- The Gemini key is stored separately in `chrome.storage.local`, is excluded from JSON backups, and is not synchronized by Resume Toner.
-- Chrome extension storage is not encrypted. Someone with access to an unlocked Chrome profile may be able to recover local information.
-- Resume Toner has no application backend, developer-accessible user database, analytics, advertising, or telemetry.
-- Gemini requests go directly from the extension to Google's Gemini API using the user's key.
-- Exported JSON backups never contain the Gemini key. Downloaded PDFs and backups remain wherever the user saves them.
-
-See the [full visual onboarding guide](https://parthd77.github.io/ResumeToner/) for annotated screen examples. If installation fails, confirm that you are using desktop Chrome, are not in Guest or Incognito mode, selected the extracted folder rather than the ZIP, and are not blocked by a device administrator.
-
-## Current V1 scope
-
-- Chrome desktop and Manifest V3
-- English software and technical roles
-- Gemini BYOK (`gemini-3.5-flash-lite` by default)
-- Evidence-only, conservative extrapolation, and gated diagnostic stress modes
-- One ATS-friendly US Letter template with one- or two-page targets
-- Local history, versioned JSON backup, and direct PDF export
-
-Application-answer drafting and local models are not part of V1.
-
-## Local development
-
-Requirements: Node.js 20 or newer and current Chrome.
+To build and load it locally:
 
 ```powershell
 npm install
@@ -166,19 +122,27 @@ npm test
 npm run build
 ```
 
-Then open `chrome://extensions`, enable Developer mode, select **Load unpacked**, and choose the generated `dist` directory. Developer mode is for development; public releases are distributed through the Chrome Web Store.
-
-Create a release ZIP and run the privacy/release audit:
+Open `chrome://extensions`, enable **Developer mode**, choose **Load unpacked**, and select the generated `dist` directory. To create the manual ZIP and run the privacy/release audit:
 
 ```powershell
 npm run audit:release
 npm run package
 ```
 
-## Privacy and security
+The extension sends the full resume and job listing to Google Gemini only when the user invokes the relevant action. Review the current [Gemini pricing and data-use table](https://ai.google.dev/gemini-api/docs/pricing) and [Gemini API terms](https://ai.google.dev/gemini-api/terms) before use.
 
-Read [Privacy](docs/PRIVACY.md), [Security](SECURITY.md), and [Terms](docs/TERMS.md). Never post API keys, resumes, or job-application details in a public issue. Send private privacy or security reports to [parthdhroovji1@gmail.com](mailto:parthdhroovji1@gmail.com).
+## Current scope
 
-## Licence
+- Windows desktop and Apple-silicon macOS desktop
+- English software and technical roles
+- Review-first LaTeX replacement workflow using an existing ChatGPT window
+- Local history, private JSON backup, PDF export, and `.tex` export
+- Optional Chrome extension with Gemini BYOK
+
+Automatic updates, Intel Mac support, the Mac App Store, and local AI models are not currently included.
+
+## Support and licence
+
+Use [GitHub Issues](https://github.com/ParthD77/ResumeToner/issues) for non-private bugs and feature requests. Never post API keys, resumes, or application details in a public issue. Send private privacy or security reports to [parthdhroovji1@gmail.com](mailto:parthdhroovji1@gmail.com).
 
 Source code is available under the Mozilla Public License 2.0. See [LICENSE](LICENSE).
