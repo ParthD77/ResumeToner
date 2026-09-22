@@ -4,6 +4,8 @@ Last updated: September 22, 2026
 
 Resume Toner is a local-first, open-source desktop app with an optional Chrome extension. It has no developer-operated application backend, user account, analytics, advertising, or telemetry. The developer cannot remotely view users' resumes, application data, or API keys.
 
+Official installers and disk images are distributed through GitHub Releases. GitHub may process download metadata under its own privacy terms; Resume Toner does not receive resume contents or application data merely because a user downloads a release. Code signing and Apple notarization, when used, verify the publisher and software integrity and do not send resume content to the developer.
+
 ## Desktop app
 
 The desktop app handles the LaTeX resume, job posting, ChatGPT prompt and response, review decisions, settings, and exports supplied or created by the user. It stores the current session and recent snapshots in local application storage. This storage is not encrypted and is not a cloud backup. A person with access to the unlocked device may be able to recover it.

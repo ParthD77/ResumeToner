@@ -22,6 +22,8 @@ The product's handling of resumes, job pages, API keys, local records, and trans
 
 To the maximum extent permitted by applicable law, Resume Toner is provided “as is” and “as available,” without warranties or conditions of any kind, whether express, implied, or statutory, including warranties of accuracy, reliability, availability, merchantability, fitness for a particular purpose, title, and non-infringement. AI output may be incomplete, inaccurate, or unsuitable for your circumstances.
 
+Official release files may be unsigned or unnotarized and may trigger operating-system security warnings. Users should obtain builds only from this repository's GitHub Releases page, compare published checksums when practical, and never disable system security protections globally. A signature or notarization verifies publisher identity and software integrity checks; it is not a warranty that the software is error-free or fit for a particular purpose.
+
 ## Limitation of liability
 
 To the maximum extent permitted by applicable law, the Resume Toner developer and contributors will not be liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for lost profits, opportunities, data, goodwill, or business interruption arising from or related to the software or generated output. Nothing in these terms excludes or limits liability or consumer rights that cannot legally be excluded or limited.

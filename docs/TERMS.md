@@ -8,3 +8,4 @@ Users provide and control their Gemini API key, quota, billing, and relationship
 
 The software is provided under the warranty and liability terms of the Mozilla Public License 2.0.
 
+Official release files may be unsigned. Operating systems may warn about or block unsigned software, and users should install only files obtained from this repository's GitHub Releases page after reviewing the release notes and checksum. Never disable an operating system's security protections globally to run Resume Toner. Signed or notarized status is a security and installation property, not a guarantee that the software is error-free or suitable for a particular purpose.

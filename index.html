@@ -88,10 +88,10 @@
         <div class="wrap"><div class="section-head"><div class="eyebrow">Start here · Download</div><h2>Get the desktop app.</h2><p>Windows is the recommended path. Downloads appear on GitHub Releases after the publisher has built and tested them.</p></div>
           <div class="install-options">
             <article class="install-card"><span class="badge">RECOMMENDED</span><h3>Windows desktop</h3><ol><li>Install MiKTeX first.</li><li>Open the official Releases page and download the latest `.exe`.</li><li>Run the installer. Early community releases are unsigned, so Windows may show an <strong>Unknown publisher</strong> warning.</li><li>Reopen the app after any MiKTeX installation or update.</li></ol><a class="button" href="https://github.com/ParthD77/ResumeToner/releases">View Windows downloads</a></article>
-            <article class="install-card"><span class="badge pending">SIGNED BUILD REQUIRED</span><h3>Apple-silicon Mac</h3><ol><li>Install MacTeX.</li><li>Download the notarized arm64 DMG if one is attached to the latest official release.</li><li>Drag Resume Toner Desktop to Applications.</li><li>Requires macOS 13 or newer; Intel Macs are not currently supported.</li></ol><a class="button alt" href="https://github.com/ParthD77/ResumeToner/releases">View Mac downloads</a></article>
+            <article class="install-card"><span class="badge pending">EARLY TESTER BUILD</span><h3>Apple-silicon Mac</h3><ol><li>Install MacTeX.</li><li>Download the arm64 DMG from the latest official release.</li><li>Drag Resume Toner Desktop to Applications.</li><li>If the build is unsigned, try opening it once, then approve it under <strong>System Settings → Privacy &amp; Security → Open Anyway</strong>. Never disable Gatekeeper globally.</li><li>Requires macOS 13 or newer; Intel Macs are not currently supported.</li></ol><a class="button alt" href="https://github.com/ParthD77/ResumeToner/releases">View Mac downloads</a></article>
           </div>
           <div class="setup-grid"><div class="ui-shot" role="img" aria-label="Official GitHub Releases download guidance"><div class="ui-top"><span class="fake-title">GitHub Releases</span><span>Assets</span></div><div class="ui-content"><span class="fake-button">Windows installer (.exe)</span><div class="key-row"><span class="mark">RT</span><span class="key-mask"><strong>Official project release</strong><br>Source and installer share a version tag</span><span>✓</span></div><div class="annotation"><i>1</i>Download only from ParthD77/ResumeToner</div><div class="annotation"><i>2</i>No asset means no release is available yet</div></div></div><div><h3>Prefer to build it yourself?</h3><ol class="guide-list"><li>Install Node.js 20 or newer and clone the repository.</li><li>Run <code>npm install</code> and <code>npm test</code>.</li><li>On Windows, run <code>npm run desktop:build:win</code>.</li><li>Find the installer in the versioned <code>desktop-release-*</code> folder.</li></ol></div></div>
-          <p class="source-note">Unsigned Windows builds are best suited to testers and technical early adopters. For a wider public launch, a code-signed installer provides a substantially better and safer onboarding experience.</p>
+          <p class="source-note">Unsigned Windows and Mac builds are best suited to informed testers and technical early adopters. Users do not need developer accounts, but their operating system will show a warning or require an explicit exception. Signed—and on macOS, notarized—builds provide a substantially better public onboarding experience.</p>
         </div>
       </section>
 
@@ -106,6 +106,15 @@
           Chrome extension. It has no developer-operated backend, user accounts,
           analytics, advertising, or telemetry. The developer cannot remotely
           view users' resumes, application data, or API keys.
+        </p>
+
+        <p>
+          Official installers and disk images are distributed through GitHub
+          Releases. GitHub may process download metadata under its own privacy
+          terms; Resume Toner does not receive resume contents or application data
+          merely because a user downloads a release. Code signing and Apple
+          notarization, when used, verify the publisher and software integrity and
+          do not send resume content to the developer.
         </p>
 
         <h2>Information handled</h2>
